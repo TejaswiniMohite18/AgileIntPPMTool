@@ -2,27 +2,41 @@ package io.kittuintelligence.ppmtool.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Project {
 // This is my new commit
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	
+	private Long id;
+	@NotBlank(message= "ProjectName is required")
 	private String projectName;
+	@NotBlank(message= "ProjectName is required")
+	@Column(updatable = false, unique = true)
+	@Size(min = 4, max = 5 , message="Please use 4 or 5 character")
 	private String projectIdentifier;
+	@NotBlank(message= "description is required")
 	private String description;
+	@JsonFormat ( pattern = "yyyy-mm-dd")
 	private Date start_date;
+	@JsonFormat ( pattern = "yyyy-mm-dd")
 	private Date end_date;
 	
+	@JsonFormat ( pattern = "yyyy-mm-dd")
 	private Date created_At;
+	@JsonFormat ( pattern = "yyyy-mm-dd")
 	private Date updated_At;
 	
 	
